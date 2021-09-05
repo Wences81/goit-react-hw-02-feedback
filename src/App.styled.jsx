@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 
 export const MainContainer = styled.div`
-  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

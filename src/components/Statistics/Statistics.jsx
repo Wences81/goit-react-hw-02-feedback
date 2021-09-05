@@ -21,7 +21,6 @@ export default function Statistics({
           <Span>Positive Feedback: {positivePercentage}% </Span>
         </StatisticsSection>
       )}
-      ;
     </Container>
   );
 }

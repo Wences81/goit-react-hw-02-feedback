@@ -6,9 +6,12 @@ export const Container = styled.div`
 
 export const StatisticsSection = styled.section`
   display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const Span = styled.span`
-  margin-bottom: 5px;
-  padding: 10px;
+  padding: 7px 15px;
+  font-size: 24px;
+  color: orange;
 `;
