@@ -1,9 +1,9 @@
-import React from "react";
-import Feedback from "./components/FeedbackOptions/Feedback";
-import Statistics from "./components/Statistics/Statistics";
-import SectionTitle from "./components/SectionTitle/SectionTitle";
-import Notification from "./components/Notification/Notification";
-import { MainContainer } from "./App.styled";
+import React from 'react';
+import Feedback from '../FeedbackOptions/Feedback';
+import Statistics from '../Statistics/Statistics';
+import SectionTitle from '../SectionTitle/SectionTitle';
+import Notification from '../Notification/Notification';
+import { MainContainer } from './App.styled';
 
 class App extends React.Component {
   state = {
@@ -12,8 +12,8 @@ class App extends React.Component {
     bad: 0,
   };
 
-  handleIncrement = (option) => {
-    this.setState((prevState) => {
+  handleIncrement = option => {
+    this.setState(prevState => {
       return {
         [option]: prevState[option] + 1,
       };
@@ -26,24 +26,22 @@ class App extends React.Component {
   };
 
   countPositiveFeedbackPercentage = () => {
-    const { good, neutral, bad } = this.state;
-    return Math.round((good * 100) / (good + neutral + bad));
+    const { good } = this.state;
+    return Math.round((good * 100) / this.countTotalFeedback());
   };
 
   render() {
     const { good, neutral, bad } = this.state;
-    const totalFeedback = good + neutral + bad;
+    const totalFeedback = this.countTotalFeedback() > 0;
+    const options = Object.keys(this.state);
 
     return (
       <MainContainer>
         <SectionTitle title="Please leave feedback">
-          <Feedback
-            options={["good", "neutral", "bad"]}
-            handleIncrement={this.handleIncrement}
-          />
+          <Feedback options={options} handleIncrement={this.handleIncrement} />
         </SectionTitle>
         <SectionTitle title="Statistics">
-          {totalFeedback > 0 ? (
+          {totalFeedback && (
             <Statistics
               good={good}
               neutral={neutral}
@@ -52,9 +50,9 @@ class App extends React.Component {
               total={this.countTotalFeedback()}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
-          ) : (
-            <Notification message="No feedback given" />
           )}
+
+          {!totalFeedback && <Notification message="No feedback given" />}
         </SectionTitle>
       </MainContainer>
     );
